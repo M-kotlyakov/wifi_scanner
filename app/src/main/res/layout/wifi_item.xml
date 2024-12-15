@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:text="@string/title_inputted_port"/>
+        android:text="@string/title_network_name"/>
 
     <LinearLayout
         android:layout_width="match_parent"

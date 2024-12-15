@@ -82,7 +82,17 @@
                 android:padding="4dp"
                 android:background="@android:color/darker_gray" />
         </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_inputted_port"
+                android:padding="4dp" />
+        </TableRow>
     </TableLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
