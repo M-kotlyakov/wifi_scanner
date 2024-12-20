@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">wifi scanner</string>
     <string name="scanner_button_text">Сканировать Wi-Fi</string>
-    <string name="port_hint">Введите локацию сканирования</string>
+    <string name="port_hint">Введите локацию</string>
     <string name="save_button">Сохранить</string>
     <string name="see_button">Посмотреть</string>
+    <string name="empty_text_wifi">Нет доступных сетей</string>
+    <string name="save_location_btn_text">Сохранить</string>
 
     <string name="title_network_name">Название сети: %s</string>
     <string name="title_inputted_port">Локация сканирования: %s</string>
-    <string name="title_from_data">Данные от сканирования / Данные из Shared Pref</string>
+    <string name="title_data_from_scan">Данные от сканирования</string>
+    <string name="title_data_from_shared_pref">Данные из Shared Pref</string>
     <string name="title_mac">MAC</string>
     <string name="title_ssid">SSID</string>
     <string name="title_rssi">RSSI</string>

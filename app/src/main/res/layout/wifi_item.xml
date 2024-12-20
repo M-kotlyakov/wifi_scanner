@@ -1,54 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    android:id="@+id/ll_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:paddingVertical="4dp"
-    android:orientation="vertical">
+    tools:ignore="UselessParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/title_port"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:text="@string/title_network_name"/>
-
-    <LinearLayout
+        android:id="@+id/mac_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:layout_weight="1"
+        android:padding="4dp"
+        android:background="@android:color/darker_gray"
+        tools:text="MAC"/>
 
-        <TextView
-            android:id="@+id/column1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
-            tools:text="MAC"/>
+    <TextView
+        android:id="@+id/ssid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="4dp"
+        android:background="@android:color/holo_blue_bright"
+        tools:text="SSID"/>
 
-        <TextView
-            android:id="@+id/column2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
-            tools:text="SSID"/>
-
-        <TextView
-            android:id="@+id/column3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
-            tools:text="RSSI"/>
-
-        <TextView
-            android:id="@+id/column4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
-            tools:text="Канал"/>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/rssi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="4dp"
+        android:background="@android:color/holo_green_dark"
+        tools:text="RSSI"/>
 </LinearLayout>
