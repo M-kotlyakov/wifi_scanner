@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kotlyakov.wifiscanner.wifi_manager.WIFiScanManager
 
-/**
- * @author m.kotlykov
- */
+// Паттерн фабрики для создания класса MainActivityViewModel
 class WiFiScannerViewModelFactory(
     private val wiFiScannerManager: WIFiScanManager,
     private val preferences: SharedPreferences,

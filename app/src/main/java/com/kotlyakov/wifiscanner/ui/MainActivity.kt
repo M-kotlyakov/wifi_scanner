@@ -23,11 +23,8 @@ import com.kotlyakov.wifiscanner.ui.ViewModel.WiFiScannerViewModelFactory
 import com.kotlyakov.wifiscanner.ui.recycler.WiFiScannerAdapter
 import com.kotlyakov.wifiscanner.wifi_manager.WIFiScanManagerImpl
 import kotlinx.coroutines.launch
-import kotlin.time.Duration
 
-/**
- * @author m.kotlyakov
- */
+// основной класс экрана
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -57,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         observeFromDataState()
     }
 
+    // системный метод для запроса необходимых разрешений для полного функционирования приложения
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -72,11 +70,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // настройка списка. Устанавливаем нужный лэйаут
     private fun setupRecycler() = with(binding.recycler) {
         adapter = wifiScannerAdapter
         layoutManager = LinearLayoutManager(this@MainActivity)
     }
 
+    // инициализация MainActivityViewModel
     private fun initViewModel() {
         viewModel = ViewModelProvider(
             this,
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         )[MainActivityViewModel::class.java]
     }
 
+    // обрабатываем нажатие на кнопку при сохранении локации
     private fun handleSaveInputtedText() {
         binding.saveTextBtn.setOnClickListener {
             if (binding.portEditText.text.isNotEmpty()) {
@@ -97,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // обрабатываем нажатие на кнопку при сохранении всех данных в SharedPreferences
     private fun handleSaveClickButton() {
         binding.saveButton.setOnClickListener {
             val listWifiResult = wifiScannerAdapter.getListScannerData()
@@ -109,6 +111,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // обрабатываем нажатие на кнопку для сканирования сетей
     private fun handleScanClickButton() {
         binding.scannerButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -119,6 +122,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // обрабатываем нажатие на кнопку для просмотра информации
     private fun handleSeeClickButton() {
         binding.location.visibility = View.VISIBLE
         binding.recycler.visibility = View.VISIBLE
@@ -134,6 +138,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // подписываемся на публикуемые данные и отображаем список полученных сетей
     private fun observeWiFiResult() {
         lifecycleScope.launch {
             this@MainActivity.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -145,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // подписываемся на публикуемые данные и смотрим, если загрузка сетей идет или нет
     private fun observeLoadingState() {
         lifecycleScope.launch {
             this@MainActivity.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -158,6 +164,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // подписываемся на публикуемые данные и проверяем откуда отображаются данные: из SharedPreferences или от сканирования
     private fun observeFromDataState() {
         lifecycleScope.launch {
             this@MainActivity.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
