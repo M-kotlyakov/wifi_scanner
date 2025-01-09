@@ -11,6 +11,8 @@ class WiFiScannerViewHolder(
     private val binding: WifiItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    // приваиваем UI элементам данные, которые приходят после сканирования
+    // эти данные приходят из WiFiScannerAdapter
     @RequiresApi(Build.VERSION_CODES.P)
     fun bind(wiFiResultData: WiFiResultData) = with(binding) {
         macAddress.text = wiFiResultData.macAddress

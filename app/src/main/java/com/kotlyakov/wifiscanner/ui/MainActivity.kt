@@ -30,12 +30,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityViewModel
 
+    // инициализация класса Адаптера, который отвечает за настройку списка
     private val wifiScannerAdapter by lazy {
         WiFiScannerAdapter()
     }
+    // инициализация самописного нами интерфейса WIFiScanManager,
+    // которому подставляется реализация наследуемого от этого интерфейса классав
     private val wifiManager by lazy { WIFiScanManagerImpl(this) }
+    // инициализация SharedPreferences
     private val pref by lazy { getPreferences(MODE_PRIVATE) }
 
+    // главный метод жизненного цикла MainActivity
+    // в этом методе пропиывается вся логика для обработки UI с пользовательским взаимодействием
+    // в этом методе весь экран отрисован и может взаимодействовать с пользователем
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // вызываем все необходимые методы для работы с UI
         setupRecycler()
         initViewModel()
         observeWiFiResult()
@@ -65,6 +73,7 @@ class MainActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 viewModel.startScanWifi(binding.location.text.toString())
             } else {
+                // выводим небольшое сообщение об ошибке
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
             }
         }
@@ -92,6 +101,7 @@ class MainActivity : AppCompatActivity() {
                 val inputtedText = binding.portEditText.text
                 binding.location.text = getString(R.string.title_inputted_port, inputtedText)
             } else {
+                // выводим небольшое сообщение об ошибке
                 Toast.makeText(this, "Заполните локацию", Toast.LENGTH_SHORT).show()
             }
 
@@ -106,6 +116,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.saveIntoSharedPref(binding.location.text.toString(), listWifiResult)
                 Toast.makeText(this, "Данные сохранены", Toast.LENGTH_SHORT).show()
             } else {
+                // выводим небольшое сообщение об ошибке
                 Toast.makeText(this, "Введите локацию и сканируйте сеть", Toast.LENGTH_SHORT).show()
             }
         }
@@ -114,9 +125,12 @@ class MainActivity : AppCompatActivity() {
     // обрабатываем нажатие на кнопку для сканирования сетей
     private fun handleScanClickButton() {
         binding.scannerButton.setOnClickListener {
+            // проверяем если разрешения даны или нет
+            // если не даны, то запрашиваем
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
             } else {
+                // если разрешения даны, то сканируем сети
                 viewModel.startScanWifi(binding.location.text.toString())
             }
         }
@@ -133,12 +147,13 @@ class MainActivity : AppCompatActivity() {
                 wifiScannerAdapter.setData(listSavedResult.second)
                 wifiScannerAdapter.notifyDataSetChanged()
             } else {
+                // выводим небольшое сообщение об ошибке
                 Toast.makeText(this, R.string.empty_text_wifi, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // подписываемся на публикуемые данные и отображаем список полученных сетей
+    // подписываемся на публикуемые данные и отображаем список полученных сетей и отображаем полученную информацию на UI
     private fun observeWiFiResult() {
         lifecycleScope.launch {
             this@MainActivity.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -178,6 +193,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        // константа для разрешений
         private const val PERMISSION_REQUEST_CODE = 1
     }
 }
