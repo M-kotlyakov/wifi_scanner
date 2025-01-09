@@ -1,10 +1,6 @@
 package com.kotlyakov.wifiscanner.wifi_manager.model
 
-import android.net.MacAddress
-
-/**
- * @author m.kotlykov
- */
+// объект WiFi сети, в котором есть необходимиая информация для отображения их на UI
 data class WiFiResultData(
     val ssid: String,
     val rssi: Int,
